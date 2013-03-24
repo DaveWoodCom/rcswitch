@@ -340,7 +340,7 @@
 		percent = 0.0;
 	if(percent > 1.0)
 		percent = 1.0;
-	if(oldPercent < 0.25 && percent > 0.5 || oldPercent > 0.75 && percent < 0.5)
+	if((oldPercent < 0.25 && percent > 0.5) || (oldPercent > 0.75 && percent < 0.5))
 		mustFlip = NO;
 	[self setNeedsDisplay];
 	[self sendActionsForControlEvents:UIControlEventTouchDragInside];
@@ -394,7 +394,7 @@
 {
 	if(animated){
 		float toPercent = aBool ? 1.0 : 0.0;
-		if(percent < 0.5 && aBool || percent > 0.5 && !aBool)
+		if((percent < 0.5 && aBool) || (percent > 0.5 && !aBool))
 			[self performSwitchToPercent:toPercent];
 	} else {
 		percent = aBool ? 1.0 : 0.0;
