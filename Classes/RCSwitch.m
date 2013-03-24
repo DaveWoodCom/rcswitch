@@ -60,7 +60,7 @@
 	self.contentMode = UIViewContentModeRedraw;
 	[self setKnobWidth:30];
 	[self regenerateImages];
-	sliderOff = [[UIImage imageNamed:@"btn_slider_off.png"] stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
+	sliderOff = [self imageForKey:RC_kSliderOff];
 	scale = [[UIScreen mainScreen] scale];
 	self.opaque = NO;
 }
@@ -84,13 +84,49 @@
 	return self;
 }
 
+- (UIImage *)imageForKey:(NSUInteger)key
+{
+    switch (key)
+    {
+        case RC_kSliderOff:
+            return [[UIImage imageNamed:@"btn_slider_off.png"] stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
+            break;
+
+        case RC_kSliderOn:
+            return [[UIImage imageNamed:@"btn_slider_on.png"] stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
+            break;
+
+        case RC_kSliderThumb:
+            return [UIImage imageNamed:@"btn_slider_thumb.png"];
+            break;
+
+        case RC_kSliderThumbPressed:
+            return [UIImage imageNamed:@"btn_slider_thumb_pressed.png"];
+            break;
+
+        case RC_kSliderTrack:
+            return [UIImage imageNamed:@"btn_slider_track.png"];
+            break;
+
+        case RC_kSliderTrackPressed:
+            return [UIImage imageNamed:@"btn_slider_track_pressed.png"];
+            break;
+
+        default:
+            break;
+    }
+
+    NSAssert(NO, @"No image for requested key");
+    return nil;
+}
+
 - (void)setKnobWidth:(float)aFloat
 {
 	knobWidth = roundf(aFloat); // whole pixels only
 	endcapWidth = roundf(knobWidth / 2.0);
 	
 	{
-		UIImage *knobTmpImage = [UIImage imageNamed:@"btn_slider_thumb.png"];
+		UIImage *knobTmpImage = [self imageForKey:RC_kSliderThumb];
 		UIImage *knobImageStretch = [knobTmpImage stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
 		CGRect knobRect = CGRectMake(0, 0, knobWidth, [knobImageStretch size].height);
 
@@ -102,7 +138,7 @@
 	}
 	
 	{
-		UIImage *knobTmpImage = [UIImage imageNamed:@"btn_slider_thumb_pressed.png"];
+		UIImage *knobTmpImage = [self imageForKey:RC_kSliderThumbPressed];
 		UIImage *knobImageStretch = [knobTmpImage stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
 		CGRect knobRect = CGRectMake(0, 0, knobWidth, [knobImageStretch size].height);
 		UIGraphicsBeginImageContextWithOptions(knobRect.size, NO, scale);
@@ -120,7 +156,7 @@
 - (void)regenerateImages
 {
 	CGRect boundsRect = self.bounds;
-	UIImage *sliderOnBase = [[UIImage imageNamed:@"btn_slider_on.png"] stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
+	UIImage *sliderOnBase = [self imageForKey:RC_kSliderOn];
 	CGRect sliderOnRect = boundsRect;
 	sliderOnRect.size.height = [sliderOnBase size].height;
 	UIGraphicsBeginImageContextWithOptions(sliderOnRect.size, NO, scale);
@@ -144,7 +180,7 @@
 #endif
 	
 	{
-		UIImage *buttonTmpImage = [UIImage imageNamed:@"btn_slider_track.png"];
+		UIImage *buttonTmpImage = [self imageForKey:RC_kSliderTrack];
 		UIImage *buttonEndTrackBase = [buttonTmpImage stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
 		CGRect sliderOnRect = boundsRect;
 		UIGraphicsBeginImageContextWithOptions(sliderOnRect.size, NO, scale);
@@ -154,7 +190,7 @@
 	}
 	
 	{
-		UIImage *buttonTmpImage = [UIImage imageNamed:@"btn_slider_track_pressed.png"];
+		UIImage *buttonTmpImage = [self imageForKey:RC_kSliderTrackPressed];
 		UIImage *buttonEndTrackBase = [buttonTmpImage stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
 		CGRect sliderOnRect = boundsRect;
 		UIGraphicsBeginImageContextWithOptions(sliderOnRect.size, NO, scale);

@@ -22,6 +22,15 @@
 
 #import <UIKit/UIKit.h>
 
+enum RC_SliderImageKeys {
+	RC_kSliderOff = 1,
+	RC_kSliderOn,
+    RC_kSliderThumb,
+    RC_kSliderThumbPressed,
+    RC_kSliderTrack,
+    RC_kSliderTrackPressed
+};
+
 @interface RCSwitch : UIControl
 
 #pragma mark - Properties
@@ -39,5 +48,7 @@
 /* Override to draw your own custom text or graphics in the track */
 - (void)drawUnderlayersInRect:(CGRect)aRect withOffset:(float)offset inTrackWidth:(float)trackWidth;
 
+/* Override to provide custom images */
+- (UIImage *)imageForKey:(NSUInteger)key;
 
 @end
