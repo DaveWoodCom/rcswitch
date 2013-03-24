@@ -307,6 +307,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = RCSwitch_Prefix.pch;
 				INFOPLIST_FILE = "RCSwitch-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = RCSwitch;
 			};
 			name = Debug;
@@ -319,6 +320,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = RCSwitch_Prefix.pch;
 				INFOPLIST_FILE = "RCSwitch-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = RCSwitch;
 				VALIDATE_PRODUCT = YES;
 			};
