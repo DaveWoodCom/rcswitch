@@ -27,14 +27,14 @@ typedef enum {
 	RC_kSliderOn,
     RC_kSliderThumb,
     RC_kSliderThumbPressed,
-    RC_kSliderTrack,
-    RC_kSliderTrackPressed
 } RC_SliderImageKey;
 
 @interface RCSwitch : UIControl
 
 #pragma mark - Properties
 @property (readwrite, assign) float knobWidth;
+@property (readwrite, assign) float drawHeight;
+@property (readwrite, assign) CGSize knobOffset;
 @property (readwrite, assign, getter=isOn) BOOL on;
 - (void)setOn:(BOOL)aBool animated:(BOOL)animated;
 
