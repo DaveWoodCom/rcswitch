@@ -29,6 +29,12 @@
 		5543363F16FF7FC40037EADD /* btn_slider_thumb_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5543363316FF7FC40037EADD /* btn_slider_thumb_pressed@2x.png */; };
 		5543364016FF7FC40037EADD /* btn_slider_thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 5543363416FF7FC40037EADD /* btn_slider_thumb.png */; };
 		5543364116FF7FC40037EADD /* btn_slider_thumb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5543363516FF7FC40037EADD /* btn_slider_thumb@2x.png */; };
+		5543364816FF81200037EADD /* RCSwitchRayWenderlich.m in Sources */ = {isa = PBXBuildFile; fileRef = 5543364716FF81200037EADD /* RCSwitchRayWenderlich.m */; };
+		5543364F16FF8C0C0037EADD /* reference.txt in Resources */ = {isa = PBXBuildFile; fileRef = 5543364A16FF8C0C0037EADD /* reference.txt */; };
+		5543365016FF8C0C0037EADD /* switchBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 5543364B16FF8C0C0037EADD /* switchBackground.png */; };
+		5543365116FF8C0C0037EADD /* switchBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5543364C16FF8C0C0037EADD /* switchBackground@2x.png */; };
+		5543365216FF8C0C0037EADD /* switchHandle.png in Resources */ = {isa = PBXBuildFile; fileRef = 5543364D16FF8C0C0037EADD /* switchHandle.png */; };
+		5543365316FF8C0C0037EADD /* switchHandle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5543364E16FF8C0C0037EADD /* switchHandle@2x.png */; };
 		99255997142B1A490061C68B /* RCSwitchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99255999142B1A490061C68B /* RCSwitchViewController.xib */; };
 		9959C64F114C5C6500842058 /* RCSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 9959C64E114C5C6500842058 /* RCSwitch.m */; };
 		9959C9A1114C92BC00842058 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9959C9A0114C92BC00842058 /* QuartzCore.framework */; };
@@ -65,6 +71,13 @@
 		5543363316FF7FC40037EADD /* btn_slider_thumb_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_slider_thumb_pressed@2x.png"; sourceTree = "<group>"; };
 		5543363416FF7FC40037EADD /* btn_slider_thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_slider_thumb.png; sourceTree = "<group>"; };
 		5543363516FF7FC40037EADD /* btn_slider_thumb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_slider_thumb@2x.png"; sourceTree = "<group>"; };
+		5543364616FF81200037EADD /* RCSwitchRayWenderlich.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCSwitchRayWenderlich.h; sourceTree = "<group>"; };
+		5543364716FF81200037EADD /* RCSwitchRayWenderlich.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCSwitchRayWenderlich.m; sourceTree = "<group>"; };
+		5543364A16FF8C0C0037EADD /* reference.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = reference.txt; sourceTree = "<group>"; };
+		5543364B16FF8C0C0037EADD /* switchBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switchBackground.png; sourceTree = "<group>"; };
+		5543364C16FF8C0C0037EADD /* switchBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "switchBackground@2x.png"; sourceTree = "<group>"; };
+		5543364D16FF8C0C0037EADD /* switchHandle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switchHandle.png; sourceTree = "<group>"; };
+		5543364E16FF8C0C0037EADD /* switchHandle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "switchHandle@2x.png"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* RCSwitch-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "RCSwitch-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		99255998142B1A490061C68B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/RCSwitchViewController.xib; sourceTree = "<group>"; };
 		9959C64D114C5C6500842058 /* RCSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCSwitch.h; sourceTree = "<group>"; };
@@ -109,6 +122,8 @@
 				9959CB8E114D820200842058 /* RCSwitchOnOff.m */,
 				99FF58C0127E4269001DFF1B /* RCSwitchClone.h */,
 				99FF58C1127E4269001DFF1B /* RCSwitchClone.m */,
+				5543364616FF81200037EADD /* RCSwitchRayWenderlich.h */,
+				5543364716FF81200037EADD /* RCSwitchRayWenderlich.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -171,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				554335C816FF793D0037EADD /* Launch */,
+				5543364916FF8C0C0037EADD /* RayWenderlich */,
 				554335D216FF793D0037EADD /* RCSwitch */,
 				554335ED16FF793D0037EADD /* RCSwitchOnOff */,
 			);
@@ -211,6 +227,18 @@
 				554335F116FF793D0037EADD /* btn_slider_international_on@2x.png */,
 			);
 			path = RCSwitchOnOff;
+			sourceTree = "<group>";
+		};
+		5543364916FF8C0C0037EADD /* RayWenderlich */ = {
+			isa = PBXGroup;
+			children = (
+				5543364A16FF8C0C0037EADD /* reference.txt */,
+				5543364B16FF8C0C0037EADD /* switchBackground.png */,
+				5543364C16FF8C0C0037EADD /* switchBackground@2x.png */,
+				5543364D16FF8C0C0037EADD /* switchHandle.png */,
+				5543364E16FF8C0C0037EADD /* switchHandle@2x.png */,
+			);
+			path = RayWenderlich;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,6 +313,11 @@
 				5543363F16FF7FC40037EADD /* btn_slider_thumb_pressed@2x.png in Resources */,
 				5543364016FF7FC40037EADD /* btn_slider_thumb.png in Resources */,
 				5543364116FF7FC40037EADD /* btn_slider_thumb@2x.png in Resources */,
+				5543364F16FF8C0C0037EADD /* reference.txt in Resources */,
+				5543365016FF8C0C0037EADD /* switchBackground.png in Resources */,
+				5543365116FF8C0C0037EADD /* switchBackground@2x.png in Resources */,
+				5543365216FF8C0C0037EADD /* switchHandle.png in Resources */,
+				5543365316FF8C0C0037EADD /* switchHandle@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +334,7 @@
 				9959C64F114C5C6500842058 /* RCSwitch.m in Sources */,
 				9959CB8F114D820200842058 /* RCSwitchOnOff.m in Sources */,
 				99FF58C2127E4269001DFF1B /* RCSwitchClone.m in Sources */,
+				5543364816FF81200037EADD /* RCSwitchRayWenderlich.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

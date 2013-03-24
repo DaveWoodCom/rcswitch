@@ -23,12 +23,14 @@
 #import <UIKit/UIKit.h>
 
 @class RCSwitchClone;
+@class RCSwitchRayWenderlich;
 
 @interface RCSwitchViewController : UIViewController {
 
 }
 
 @property (nonatomic, weak) IBOutlet RCSwitchClone *disabledSwitchClone;
+@property (nonatomic, weak) IBOutlet RCSwitchRayWenderlich *disabledSwitchRayWenderlich;
 
 @end
 

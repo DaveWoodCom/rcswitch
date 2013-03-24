@@ -20,9 +20,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
+#import "RCSwitchViewController.h"
 #import "RCSwitchClone.h"
 #import "RCSwitchOnOff.h"
-#import "RCSwitchViewController.h"
+#import "RCSwitchRayWenderlich.h"
 
 @implementation RCSwitchViewController
 
@@ -49,6 +50,7 @@ THE SOFTWARE.
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.disabledSwitchClone.enabled = NO;
+    self.disabledSwitchRayWenderlich.enabled = NO;
 }
 
 /*
