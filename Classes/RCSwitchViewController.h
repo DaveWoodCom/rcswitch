@@ -22,9 +22,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class RCSwitchClone;
+
 @interface RCSwitchViewController : UIViewController {
 
 }
+
+@property (nonatomic, weak) IBOutlet RCSwitchClone *disabledSwitchClone;
 
 @end
 

@@ -52,6 +52,12 @@
 
 @implementation RCSwitch
 
+- (void)setEnabled:(BOOL)enabled
+{
+    [super setEnabled:enabled];
+    self.alpha = enabled ? 1.0 : 0.5;
+}
+
 - (void)initCommon
 {
     drawHeight = 28;
