@@ -14,6 +14,9 @@
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* RCSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* RCSwitchViewController.m */; };
+		554335C216FF65760037EADD /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 554335C116FF65760037EADD /* Default-568h@2x.png */; };
+		554335C516FF66E10037EADD /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 554335C316FF66E10037EADD /* Default.png */; };
+		554335C616FF66E10037EADD /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 554335C416FF66E10037EADD /* Default@2x.png */; };
 		99255997142B1A490061C68B /* RCSwitchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99255999142B1A490061C68B /* RCSwitchViewController.xib */; };
 		9925936711D198B000774871 /* btn_slider_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9925936111D198B000774871 /* btn_slider_off@2x.png */; };
 		9925936811D198B000774871 /* btn_slider_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9925936211D198B000774871 /* btn_slider_on@2x.png */; };
@@ -51,6 +54,9 @@
 		28D7ACF70DDB3853001CB0EB /* RCSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCSwitchViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* RCSwitch_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCSwitch_Prefix.pch; sourceTree = "<group>"; };
+		554335C116FF65760037EADD /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		554335C316FF66E10037EADD /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		554335C416FF66E10037EADD /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* RCSwitch-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "RCSwitch-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		99255998142B1A490061C68B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/RCSwitchViewController.xib; sourceTree = "<group>"; };
 		9925936111D198B000774871 /* btn_slider_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_slider_off@2x.png"; sourceTree = "<group>"; };
@@ -150,6 +156,9 @@
 			isa = PBXGroup;
 			children = (
 				99255999142B1A490061C68B /* RCSwitchViewController.xib */,
+				554335C116FF65760037EADD /* Default-568h@2x.png */,
+				554335C316FF66E10037EADD /* Default.png */,
+				554335C416FF66E10037EADD /* Default@2x.png */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* RCSwitch-Info.plist */,
 				9959C651114C5FCD00842058 /* btn_slider_off.png */,
@@ -257,6 +266,9 @@
 				99FF59C0127E4835001DFF1B /* btn_slider_international_off@2x.png in Resources */,
 				99FF59C1127E4835001DFF1B /* btn_slider_international_on.png in Resources */,
 				99FF59C2127E4835001DFF1B /* btn_slider_international_on@2x.png in Resources */,
+				554335C216FF65760037EADD /* Default-568h@2x.png in Resources */,
+				554335C516FF66E10037EADD /* Default.png in Resources */,
+				554335C616FF66E10037EADD /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
