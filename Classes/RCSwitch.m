@@ -162,7 +162,6 @@
 		if(UIGraphicsBeginImageContextWithOptions != NULL)
 			UIGraphicsBeginImageContextWithOptions(sliderOnRect.size, NO, scale);
 		else {
-			CGSize testSize = sliderOnRect.size;
 			UIGraphicsBeginImageContext(sliderOnRect.size);
 		}
 		[buttonEndTrackBase drawInRect:sliderOnRect];
