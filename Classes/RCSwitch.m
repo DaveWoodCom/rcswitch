@@ -90,7 +90,7 @@
 	return self;
 }
 
-- (UIImage *)imageForKey:(NSUInteger)key
+- (UIImage *)imageForKey:(RC_SliderImageKey)key
 {
     switch (key)
     {

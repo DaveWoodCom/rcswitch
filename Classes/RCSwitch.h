@@ -22,14 +22,14 @@
 
 #import <UIKit/UIKit.h>
 
-enum RC_SliderImageKeys {
+typedef enum {
 	RC_kSliderOff = 1,
 	RC_kSliderOn,
     RC_kSliderThumb,
     RC_kSliderThumbPressed,
     RC_kSliderTrack,
     RC_kSliderTrackPressed
-};
+} RC_SliderImageKey;
 
 @interface RCSwitch : UIControl
 
@@ -49,6 +49,6 @@ enum RC_SliderImageKeys {
 - (void)drawUnderlayersInRect:(CGRect)aRect withOffset:(float)offset inTrackWidth:(float)trackWidth;
 
 /* Override to provide custom images */
-- (UIImage *)imageForKey:(NSUInteger)key;
+- (UIImage *)imageForKey:(RC_SliderImageKey)key;
 
 @end
