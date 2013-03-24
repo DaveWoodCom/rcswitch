@@ -22,31 +22,14 @@
 
 #import <UIKit/UIKit.h>
 
+@interface RCSwitch : UIControl
 
-@interface RCSwitch : UIControl {
-	UIImage *knobImage;
-	UIImage *knobImagePressed;
-	
-	UIImage *sliderOff;
-	UIImage *sliderOn;
-	
-	UIImage *buttonEndTrack;
-	UIImage *buttonEndTrackPressed;
-	
-	float percent, oldPercent;
-	float knobWidth;
-	float endcapWidth;
-	CGPoint startPoint;
-	float scale;
-    float drawHeight;
-	float animationDuration;
-	
-	CGSize lastBoundsSize;
-	
-	NSDate *endDate;
-	BOOL mustFlip;
-}
+#pragma mark - Properties
+@property (readwrite, assign) float knobWidth;
+@property (readwrite, assign, getter=isOn) BOOL on;
+- (void)setOn:(BOOL)aBool animated:(BOOL)animated;
 
+#pragma mark - Methods
 /* Common initialization method for initWithFrame: and initWithCoder: */
 - (void)initCommon;
 
@@ -55,9 +38,6 @@
 
 /* Override to draw your own custom text or graphics in the track */
 - (void)drawUnderlayersInRect:(CGRect)aRect withOffset:(float)offset inTrackWidth:(float)trackWidth;
-@property(readwrite,assign) float knobWidth;
 
-- (void)setOn:(BOOL)aBool animated:(BOOL)animated;
-@property(readwrite,assign,getter=isOn) BOOL on;
 
 @end

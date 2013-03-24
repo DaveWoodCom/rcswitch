@@ -24,8 +24,30 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface RCSwitch ()
-- (void)regenerateImages;
-- (void)performSwitchToPercent:(float)toPercent;
+{
+	UIImage *knobImage;
+	UIImage *knobImagePressed;
+
+	UIImage *sliderOff;
+	UIImage *sliderOn;
+
+	UIImage *buttonEndTrack;
+	UIImage *buttonEndTrackPressed;
+
+	float percent, oldPercent;
+	float knobWidth;
+	float endcapWidth;
+	CGPoint startPoint;
+	float scale;
+    float drawHeight;
+	float animationDuration;
+
+	CGSize lastBoundsSize;
+
+	NSDate *endDate;
+	BOOL mustFlip;
+}
+
 @end
 
 @implementation RCSwitch
@@ -33,27 +55,20 @@
 - (void)initCommon
 {
     drawHeight = 28;
-	/* It seems that the animation length was changed in iOS 4.0 to animate the switch slower. */
-	if(kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_4_0){
-		animationDuration = 0.25;
-	} else {
-		animationDuration = 0.175;
-	}
+    animationDuration = 0.25;
+
 	self.contentMode = UIViewContentModeRedraw;
 	[self setKnobWidth:30];
 	[self regenerateImages];
-	sliderOff = [[UIImage imageNamed:@"btn_slider_off.png"] stretchableImageWithLeftCapWidth:12.0
-																				 topCapHeight:0.0];
-	if([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
-		scale = [[UIScreen mainScreen] scale];
-	else
-		scale = 1.0;
+	sliderOff = [[UIImage imageNamed:@"btn_slider_off.png"] stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
+	scale = [[UIScreen mainScreen] scale];
 	self.opaque = NO;
 }
 
 - (id)initWithFrame:(CGRect)aRect
 {
-	if((self = [super initWithFrame:aRect])){
+	if ((self = [super initWithFrame:aRect]))
+    {
 		[self initCommon];
 	}
 	return self;
@@ -61,13 +76,13 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-	if((self = [super initWithCoder:aDecoder])){
+	if ((self = [super initWithCoder:aDecoder]))
+    {
 		[self initCommon];
 		percent = 1.0;
 	}
 	return self;
 }
-
 
 - (void)setKnobWidth:(float)aFloat
 {
@@ -76,14 +91,10 @@
 	
 	{
 		UIImage *knobTmpImage = [UIImage imageNamed:@"btn_slider_thumb.png"];
-		UIImage *knobImageStretch = [knobTmpImage stretchableImageWithLeftCapWidth:12.0
-																	  topCapHeight:0.0];
+		UIImage *knobImageStretch = [knobTmpImage stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
 		CGRect knobRect = CGRectMake(0, 0, knobWidth, [knobImageStretch size].height);
 
-		if(UIGraphicsBeginImageContextWithOptions != NULL)
-			UIGraphicsBeginImageContextWithOptions(knobRect.size, NO, scale);
-		else
-			UIGraphicsBeginImageContext(knobRect.size);
+        UIGraphicsBeginImageContextWithOptions(knobRect.size, NO, scale);
 
 		[knobImageStretch drawInRect:knobRect];
 		knobImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -92,13 +103,9 @@
 	
 	{
 		UIImage *knobTmpImage = [UIImage imageNamed:@"btn_slider_thumb_pressed.png"];
-		UIImage *knobImageStretch = [knobTmpImage stretchableImageWithLeftCapWidth:12.0
-																	  topCapHeight:0.0];
+		UIImage *knobImageStretch = [knobTmpImage stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
 		CGRect knobRect = CGRectMake(0, 0, knobWidth, [knobImageStretch size].height);
-		if(UIGraphicsBeginImageContextWithOptions != NULL)
-			UIGraphicsBeginImageContextWithOptions(knobRect.size, NO, scale);
-		else
-			UIGraphicsBeginImageContext(knobRect.size);
+		UIGraphicsBeginImageContextWithOptions(knobRect.size, NO, scale);
 		[knobImageStretch drawInRect:knobRect];
 		knobImagePressed = UIGraphicsGetImageFromCurrentImageContext();
 		UIGraphicsEndImageContext();	
@@ -113,14 +120,10 @@
 - (void)regenerateImages
 {
 	CGRect boundsRect = self.bounds;
-	UIImage *sliderOnBase = [[UIImage imageNamed:@"btn_slider_on.png"] stretchableImageWithLeftCapWidth:12.0
-																						   topCapHeight:0.0];
+	UIImage *sliderOnBase = [[UIImage imageNamed:@"btn_slider_on.png"] stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
 	CGRect sliderOnRect = boundsRect;
 	sliderOnRect.size.height = [sliderOnBase size].height;
-	if(UIGraphicsBeginImageContextWithOptions != NULL)
-		UIGraphicsBeginImageContextWithOptions(sliderOnRect.size, NO, scale);
-	else
-		UIGraphicsBeginImageContext(sliderOnRect.size);
+	UIGraphicsBeginImageContextWithOptions(sliderOnRect.size, NO, scale);
 	[sliderOnBase drawInRect:sliderOnRect];
 	sliderOn = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
@@ -142,15 +145,9 @@
 	
 	{
 		UIImage *buttonTmpImage = [UIImage imageNamed:@"btn_slider_track.png"];
-		UIImage *buttonEndTrackBase = [buttonTmpImage stretchableImageWithLeftCapWidth:12.0
-																		  topCapHeight:0.0];
+		UIImage *buttonEndTrackBase = [buttonTmpImage stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
 		CGRect sliderOnRect = boundsRect;
-		/* works around < 4.0 bug with not scaling height (see http://stackoverflow.com/questions/785986/resizing-an-image-with-stretchableimagewithleftcapwidth) */
-		if(UIGraphicsBeginImageContextWithOptions != NULL)
-			UIGraphicsBeginImageContextWithOptions(sliderOnRect.size, NO, scale);
-		else {
-			UIGraphicsBeginImageContext(sliderOnRect.size);
-		}
+		UIGraphicsBeginImageContextWithOptions(sliderOnRect.size, NO, scale);
 		[buttonEndTrackBase drawInRect:sliderOnRect];
 		buttonEndTrack = UIGraphicsGetImageFromCurrentImageContext();
 		UIGraphicsEndImageContext();		
@@ -158,13 +155,9 @@
 	
 	{
 		UIImage *buttonTmpImage = [UIImage imageNamed:@"btn_slider_track_pressed.png"];
-		UIImage *buttonEndTrackBase = [buttonTmpImage stretchableImageWithLeftCapWidth:12.0
-																		  topCapHeight:0.0];
+		UIImage *buttonEndTrackBase = [buttonTmpImage stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
 		CGRect sliderOnRect = boundsRect;
-		if(UIGraphicsBeginImageContextWithOptions != NULL)
-			UIGraphicsBeginImageContextWithOptions(sliderOnRect.size, NO, scale);
-		else
-			UIGraphicsBeginImageContext(sliderOnRect.size);		
+		UIGraphicsBeginImageContextWithOptions(sliderOnRect.size, NO, scale);
 		[buttonEndTrackBase drawInRect:sliderOnRect];
 		buttonEndTrackPressed = UIGraphicsGetImageFromCurrentImageContext();
 		UIGraphicsEndImageContext();		
@@ -179,27 +172,43 @@
 {
 	CGRect boundsRect = self.bounds;
     boundsRect.size.height = drawHeight;
-	if(!CGSizeEqualToSize(boundsRect.size, lastBoundsSize)){
+	if (!CGSizeEqualToSize(boundsRect.size, lastBoundsSize))
+    {
 		[self regenerateImages];
 		lastBoundsSize = boundsRect.size;
 	}
 	
 	float width = boundsRect.size.width;
 	float drawPercent = percent;
-	if(((width - knobWidth) * drawPercent) < 3)
+
+    if (((width - knobWidth) * drawPercent) < 3)
+    {
 		drawPercent = 0.0;
-	if(((width - knobWidth) * drawPercent) > (width - knobWidth - 3))
+    }
+
+	if (((width - knobWidth) * drawPercent) > (width - knobWidth - 3))
+    {
 		drawPercent = 1.0;
+    }
 	
-	if(endDate){
+	if (endDate)
+    {
 		NSTimeInterval interval = [endDate timeIntervalSinceNow];
-		if(interval < 0.0){
+		if (interval < 0.0)
+        {
 			endDate = nil;
-		} else {
-			if(percent == 1.0)
+		}
+        else
+        {
+			if (percent == 1.0)
+            {
 				drawPercent = cosf((interval / animationDuration) * (M_PI / 2.0));
+            }
 			else
+            {
 				drawPercent = 1.0 - cosf((interval / animationDuration) * (M_PI / 2.0));
+            }
+
 			[self performSelector:@selector(setNeedsDisplay) withObject:nil afterDelay:0.0];
 		}
 	}
@@ -210,14 +219,16 @@
 		CGContextSaveGState(context);
 		UIGraphicsPushContext(context);
 		
-		if(drawPercent == 0.0){
+		if (drawPercent == 0.0)
+        {
 			CGRect insetClipRect = boundsRect;
 			insetClipRect.origin.x += endcapWidth;
 			insetClipRect.size.width -= endcapWidth;
 			UIRectClip(insetClipRect);
 		}
 		
-		if(drawPercent == 1.0){
+		if (drawPercent == 1.0)
+        {
 			CGRect insetClipRect = boundsRect;
 			insetClipRect.size.width -= endcapWidth;
 			UIRectClip(insetClipRect);
@@ -229,7 +240,8 @@
 			[sliderOff drawInRect:sliderOffRect];
 		}
 		
-		if(drawPercent > 0.0){		
+		if (drawPercent > 0.0)
+        {
 			float onWidth = knobWidth / 2 + ((width - knobWidth / 2) - knobWidth / 2) * drawPercent;
 			CGRect sourceRect = CGRectMake(0, 0, onWidth * scale, [sliderOn size].height * scale);
 			CGRect drawOnRect = CGRectMake(0, 0, onWidth, [sliderOn size].height);
@@ -260,27 +272,34 @@
 			CGContextTranslateCTM(context, 0.0, -boundsRect.size.height);	
 			CGPoint location = boundsRect.origin;
 			UIImage *imageToDraw = knobImage;
-			if(self.highlighted)
+			if (self.highlighted)
+            {
 				imageToDraw = knobImagePressed;
+            }
 			
 			CGRect drawOnRect = CGRectMake(location.x - 1 + roundf(drawPercent * (boundsRect.size.width - knobWidth + 2)),
 										   location.y + 1, knobWidth, [knobImage size].height);
 			CGContextDrawImage(context, drawOnRect, [imageToDraw CGImage]);
 		}
+        
 		UIGraphicsPopContext();
 		CGContextRestoreGState(context);
 	}
 	
-	if(drawPercent == 0.0 || drawPercent == 1.0){
+	if (drawPercent == 0.0 || drawPercent == 1.0)
+    {
 		CGContextSaveGState(context);
 		CGContextScaleCTM(context, 1.0, -1.0);
 		CGContextTranslateCTM(context, 0.0, -boundsRect.size.height);	
 		
 		UIImage *buttonTrackDrawImage = buttonEndTrack;
-		if(self.highlighted)
+		if (self.highlighted)
+        {
 			buttonTrackDrawImage = buttonEndTrackPressed;
+        }
 		
-		if(drawPercent == 0.0){
+		if (drawPercent == 0.0)
+        {
 			CGRect sourceRect = CGRectMake(0, 0.0, floorf(endcapWidth * scale), [buttonTrackDrawImage size].height * scale);
 			CGRect drawOnRect = CGRectMake(0, 0.0, floorf(endcapWidth), [buttonTrackDrawImage size].height);
 			CGImageRef buttonTrackSubImage = CGImageCreateWithImageInRect([buttonTrackDrawImage CGImage], sourceRect);
@@ -290,7 +309,8 @@
 			CGImageRelease(buttonTrackSubImage);		
 		}
 		
-		if(drawPercent == 1.0){
+		if (drawPercent == 1.0)
+        {
 			CGRect sourceRect = CGRectMake(([buttonTrackDrawImage size].width - endcapWidth) * scale, 0.0, endcapWidth * scale, [buttonTrackDrawImage size].height * scale);
 			CGRect drawOnRect = CGRectMake(boundsRect.size.width - ceilf(endcapWidth), 0.0, ceilf(endcapWidth), [buttonTrackDrawImage size].height);
 			CGImageRef buttonTrackSubImage = CGImageCreateWithImageInRect([buttonTrackDrawImage CGImage], sourceRect);
@@ -310,8 +330,10 @@
 	oldPercent = percent;
 	endDate = nil;
 	mustFlip = YES;
+
 	[self setNeedsDisplay];
 	[self sendActionsForControlEvents:UIControlEventTouchDown];
+    
 	return YES;
 }
 
@@ -319,15 +341,26 @@
 {
 	CGPoint point = [touch locationInView:self];
 	percent = (point.x - knobWidth / 2.0) / (self.bounds.size.width - knobWidth);
-	if(percent < 0.0)
+
+    if (percent < 0.0)
+    {
 		percent = 0.0;
-	if(percent > 1.0)
+    }
+
+	if (percent > 1.0)
+    {
 		percent = 1.0;
-	if((oldPercent < 0.25 && percent > 0.5) || (oldPercent > 0.75 && percent < 0.5))
+    }
+
+	if ((oldPercent < 0.25 && percent > 0.5) || (oldPercent > 0.75 && percent < 0.5))
+    {
 		mustFlip = NO;
+    }
+
 	[self setNeedsDisplay];
 	[self sendActionsForControlEvents:UIControlEventTouchDragInside];
-	return YES;
+
+    return YES;
 }
 
 - (void)finishEvent
@@ -335,20 +368,34 @@
 	self.highlighted = NO;
 	endDate = nil;
 	float toPercent = roundf(1.0 - oldPercent);
-	if(!mustFlip){
-		if(oldPercent < 0.25){
-			if(percent > 0.5)
+
+	if (!mustFlip)
+    {
+		if (oldPercent < 0.25)
+        {
+			if (percent > 0.5)
+            {
 				toPercent = 1.0;
+            }
 			else
+            {
 				toPercent = 0.0;
+            }
 		}
-		if(oldPercent > 0.75){
-			if(percent < 0.5)
+
+		if (oldPercent > 0.75)
+        {
+			if (percent < 0.5)
+            {
 				toPercent = 0.0;
+            }
 			else
+            {
 				toPercent = 1.0;
+            }
 		}
 	}
+
 	[self performSwitchToPercent:toPercent];
 }
 
@@ -374,12 +421,19 @@
 
 - (void)setOn:(BOOL)aBool animated:(BOOL)animated
 {
-	if(animated){
+	if (animated)
+    {
 		float toPercent = aBool ? 1.0 : 0.0;
-		if((percent < 0.5 && aBool) || (percent > 0.5 && !aBool))
+        
+		if ((percent < 0.5 && aBool) || (percent > 0.5 && !aBool))
+        {
 			[self performSwitchToPercent:toPercent];
-	} else {
+        }
+	}
+    else
+    {
 		percent = aBool ? 1.0 : 0.0;
+        
 		[self setNeedsDisplay];
 		[self sendActionsForControlEvents:UIControlEventValueChanged];
 	}
@@ -389,6 +443,7 @@
 {
 	endDate = [NSDate dateWithTimeIntervalSinceNow:fabsf(percent - toPercent) * animationDuration];
 	percent = toPercent;
+
 	[self setNeedsDisplay];
 	[self sendActionsForControlEvents:UIControlEventValueChanged];
 	[self sendActionsForControlEvents:UIControlEventTouchUpInside];
