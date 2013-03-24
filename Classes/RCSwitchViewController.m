@@ -71,22 +71,19 @@ THE SOFTWARE.
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
     NSArray *subviews = [[NSArray alloc] initWithArray:cell.contentView.subviews];
     for (UIView *subview in subviews) {
         [subview removeFromSuperview];
     }
-    [subviews release];
     
     RCSwitchOnOff *theSwitch = [[RCSwitchOnOff alloc] initWithFrame:CGRectMake(220, 8, 94, 27)];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(6, 8, 212, 27)];
     label.text = @"hello asdfasdf as dfa sdf as dfa sdf a sfas df";
     [cell.contentView addSubview:label];
     [cell.contentView addSubview:theSwitch];
-    [label release];
-    [theSwitch release];
     return cell;
 }
 
@@ -103,8 +100,5 @@ THE SOFTWARE.
 }
 
 
-- (void)dealloc {
-    [super dealloc];
-}
 
 @end

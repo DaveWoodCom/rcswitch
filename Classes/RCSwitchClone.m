@@ -40,8 +40,8 @@
 	}	
 	
 	if(useImage){
-		onImage = [[UIImage imageNamed:@"btn_slider_international_on"] retain];
-		offImage = [[UIImage imageNamed:@"btn_slider_international_off"] retain];
+		onImage = [UIImage imageNamed:@"btn_slider_international_on"];
+		offImage = [UIImage imageNamed:@"btn_slider_international_off"];
 	} else {
 		onText = [UILabel new];
 		onText.text = [[NSBundle bundleForClass:[UISwitch class]] localizedStringForKey:@"ON" value:nil table:nil];
@@ -57,14 +57,6 @@
 	}
 }
 
-- (void)dealloc
-{
-	[onText release];
-	[offText release];
-	[onImage release];
-	[offImage release];
-	[super dealloc];
-}
 
 - (void)drawUnderlayersInRect:(CGRect)aRect withOffset:(float)offset inTrackWidth:(float)trackWidth
 {
