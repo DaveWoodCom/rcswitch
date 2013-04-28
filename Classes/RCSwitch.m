@@ -45,6 +45,7 @@
 	CGSize lastBoundsSize;
 
 	NSDate *endDate;
+    BOOL shouldFlip;
     BOOL hasBeenOnDuringTouchStart;
     BOOL areTouchesBeingTracked;
 }
@@ -287,11 +288,12 @@
     CGPoint point = [touch locationInView:self];
     touchStartLocationX = point.x;
     
-	self.highlighted = YES;
+	[self setHighlighted:YES];
 	oldPercent = percent;
 	endDate = nil;
     hasBeenOnDuringTouchStart = [self isOn];
     areTouchesBeingTracked = YES;
+    shouldFlip = YES;
 
 	[self setNeedsDisplay];
 	[self sendActionsForControlEvents:UIControlEventTouchDown];
@@ -322,6 +324,12 @@
         percent = distanceToStartTouch / trackWidth;
     }
     
+    if (percent != oldPercent)
+    {
+        // The user moved the slider; do not flip any longer.
+        shouldFlip = NO;
+    }
+    
     // Normalize
     percent = MIN(1.0f, percent);
     percent = MAX(0.0f, percent);
@@ -334,11 +342,17 @@
 
 - (void)finishEvent
 {
-	self.highlighted = NO;
 	endDate = nil;
     areTouchesBeingTracked = NO;
+    [self setHighlighted:NO];
     
     float finalPercent = percent <= 0.5f ? 0.0f : 1.0f;
+    
+    // Flip control when touch recognized but slider has not been moved yet.
+    if (shouldFlip && finalPercent == oldPercent)
+    {
+        finalPercent = finalPercent == 1.0f ? 0.0f : 1.0f;
+    }
 
 	[self performSwitchToPercent:finalPercent];
 }
