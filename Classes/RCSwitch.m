@@ -50,6 +50,11 @@
     BOOL areTouchesBeingTracked;
 }
 
+/**
+ * @details Notifies the delegate about the control's new status.
+ */
+- (void)notifyDelegate;
+
 @end
 
 @implementation RCSwitch
@@ -401,6 +406,8 @@
 {
 	endDate = [NSDate dateWithTimeIntervalSinceNow:fabsf(percent - toPercent) * animationDuration];
 	percent = toPercent;
+    
+    [self notifyDelegate];
 
 	[self setNeedsDisplay];
 	[self sendActionsForControlEvents:UIControlEventValueChanged];
@@ -416,6 +423,14 @@
     }
     
     [super setHighlighted:highlighted];
+}
+
+- (void)notifyDelegate
+{
+    if (delegate && [delegate respondsToSelector:@selector(rcSwitch:changedStatusTo:)])
+    {
+        [delegate rcSwitch:self changedStatusTo:[self isOn]];
+    }
 }
 
 @end

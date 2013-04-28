@@ -94,6 +94,7 @@
 		99FF5994127E4637001DFF1B /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		99FF599A127E4655001DFF1B /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Japanese; path = Japanese.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9A795E37172D5E6A00BDB7AD /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		9A795E3A172D683200BDB7AD /* RCSwitchDelegateProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCSwitchDelegateProtocol.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +127,7 @@
 				99FF58C1127E4269001DFF1B /* RCSwitchClone.m */,
 				5543364616FF81200037EADD /* RCSwitchRayWenderlich.h */,
 				5543364716FF81200037EADD /* RCSwitchRayWenderlich.m */,
+				9A795E3A172D683200BDB7AD /* RCSwitchDelegateProtocol.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";

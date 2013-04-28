@@ -88,16 +88,18 @@ THE SOFTWARE.
     return cell;
 }
 
-- (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-	
-	// Release any cached data, images, etc that aren't in use.
-}
+#pragma mark - RCSwitchDelegate methods
 
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
+- (void)rcSwitch:(RCSwitch *)rcSwitch changedStatusTo:(BOOL)on
+{
+    if (rcSwitch == _wideSwitch)
+    {
+        NSLog(@"The wide switch is now %@.", on ? @"on" : @"off");
+    }
+    else if (rcSwitch == _normalSwitch)
+    {
+        NSLog(@"The normal switch is now %@.", on ? @"on" : @"off");
+    }
 }
 
 

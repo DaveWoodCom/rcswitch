@@ -22,6 +22,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "RCSwitchDelegateProtocol.h"
+
 typedef enum {
 	RC_kSliderOff = 1,
 	RC_kSliderOn,
@@ -30,6 +32,9 @@ typedef enum {
 } RC_SliderImageKey;
 
 @interface RCSwitch : UIControl
+{
+    IBOutlet id<RCSwitchDelegate> delegate;
+}
 
 #pragma mark - Properties
 @property (readwrite, assign) float knobWidth;

@@ -22,11 +22,15 @@
 
 #import <UIKit/UIKit.h>
 
+#import "RCSwitchDelegateProtocol.h"
+
 @class RCSwitchClone;
 @class RCSwitchRayWenderlich;
 
-@interface RCSwitchViewController : UIViewController {
-
+@interface RCSwitchViewController : UIViewController <RCSwitchDelegate>
+{
+    IBOutlet RCSwitch *_wideSwitch;
+    IBOutlet RCSwitch *_normalSwitch;
 }
 
 @property (nonatomic, weak) IBOutlet RCSwitchClone *disabledSwitchClone;
