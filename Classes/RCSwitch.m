@@ -45,7 +45,6 @@
 	CGSize lastBoundsSize;
 
 	NSDate *endDate;
-	BOOL mustFlip;
     BOOL hasBeenOnDuringTouchStart;
     BOOL areTouchesBeingTracked;
 }
@@ -291,7 +290,6 @@
 	self.highlighted = YES;
 	oldPercent = percent;
 	endDate = nil;
-	mustFlip = YES;
     hasBeenOnDuringTouchStart = [self isOn];
     areTouchesBeingTracked = YES;
 
@@ -309,23 +307,24 @@
     CGFloat distanceToStartTouch = touchLocationX - touchStartLocationX;
     CGFloat trackWidth = self.bounds.size.width - knobWidth;
     
+    CGFloat knobOffset = knobWidth / 2.9f;
+    
     if (hasBeenOnDuringTouchStart)
     {
+        distanceToStartTouch = distanceToStartTouch + knobOffset;
+        
         percent = 1 + distanceToStartTouch / trackWidth;
     }
     else
     {
+        distanceToStartTouch = distanceToStartTouch - knobOffset;
+        
         percent = distanceToStartTouch / trackWidth;
     }
     
     // Normalize
     percent = MIN(1.0f, percent);
     percent = MAX(0.0f, percent);
-
-	if ((oldPercent < 0.25 && percent > 0.5) || (oldPercent > 0.75 && percent < 0.5))
-    {
-		mustFlip = NO;
-    }
 
 	[self setNeedsDisplay];
 	[self sendActionsForControlEvents:UIControlEventTouchDragInside];
@@ -337,37 +336,11 @@
 {
 	self.highlighted = NO;
 	endDate = nil;
-	float toPercent = roundf(1.0 - oldPercent);
     areTouchesBeingTracked = NO;
+    
+    float finalPercent = percent <= 0.5f ? 0.0f : 1.0f;
 
-	if (!mustFlip)
-    {
-		if (oldPercent < 0.25)
-        {
-			if (percent > 0.5)
-            {
-				toPercent = 1.0;
-            }
-			else
-            {
-				toPercent = 0.0;
-            }
-		}
-
-		if (oldPercent > 0.75)
-        {
-			if (percent < 0.5)
-            {
-				toPercent = 0.0;
-            }
-			else
-            {
-				toPercent = 1.0;
-            }
-		}
-	}
-
-	[self performSwitchToPercent:toPercent];
+	[self performSwitchToPercent:finalPercent];
 }
 
 - (void)cancelTrackingWithEvent:(UIEvent *)event
