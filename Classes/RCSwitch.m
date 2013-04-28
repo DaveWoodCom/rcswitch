@@ -47,6 +47,7 @@
 	NSDate *endDate;
 	BOOL mustFlip;
     BOOL hasBeenOnDuringTouchStart;
+    BOOL areTouchesBeingTracked;
 }
 
 @end
@@ -292,6 +293,7 @@
 	endDate = nil;
 	mustFlip = YES;
     hasBeenOnDuringTouchStart = [self isOn];
+    areTouchesBeingTracked = YES;
 
 	[self setNeedsDisplay];
 	[self sendActionsForControlEvents:UIControlEventTouchDown];
@@ -336,6 +338,7 @@
 	self.highlighted = NO;
 	endDate = nil;
 	float toPercent = roundf(1.0 - oldPercent);
+    areTouchesBeingTracked = NO;
 
 	if (!mustFlip)
     {
@@ -415,6 +418,17 @@
 	[self setNeedsDisplay];
 	[self sendActionsForControlEvents:UIControlEventValueChanged];
 	[self sendActionsForControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+    // Prevent the control from being un-highlighted when touches are still being tracked.
+    if (areTouchesBeingTracked && !highlighted)
+    {
+        highlighted = YES;
+    }
+    
+    [super setHighlighted:highlighted];
 }
 
 @end
