@@ -11,9 +11,9 @@ The project includes a .xib file as well as a view controller to show off RCSwit
 	
 ## Authors
 
-Initial project by [Robert Chin](https://github.com/robertchin/) (http://osiris.laya.com/projects/rcswitch/).
+Initial project by [Robert Chin](https://github.com/robertchin/) (http://osiris.laya.com/projects/rcswitch/).  
 Code cleanup and major enhancements by [Dave Wood](https://github.com/DaveWoodCom/).
-Minor behaviour fixes by [Wolfgang Timme](https://github.com/wtimme/).
+Minor behaviour fixes by [Wolfgang Timme](https://github.com/wtimme/).  
 
 ## License
 
