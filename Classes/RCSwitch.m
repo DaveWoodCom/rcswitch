@@ -427,9 +427,9 @@
 
 - (void)notifyDelegate
 {
-    if (delegate && [delegate respondsToSelector:@selector(rcSwitch:changedStatusTo:)])
+    if ([self delegate] && [[self delegate] respondsToSelector:@selector(rcSwitch:changedStatusTo:)])
     {
-        [delegate rcSwitch:self changedStatusTo:[self isOn]];
+        [[self delegate] rcSwitch:self changedStatusTo:[self isOn]];
     }
 }
 

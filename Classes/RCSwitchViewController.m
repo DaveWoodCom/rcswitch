@@ -81,6 +81,7 @@ THE SOFTWARE.
     }
     
     RCSwitchOnOff *theSwitch = [[RCSwitchOnOff alloc] initWithFrame:CGRectMake(220, 8, 94, 27)];
+    [theSwitch setDelegate:self];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(6, 8, 212, 27)];
     label.text = @"hello asdfasdf as dfa sdf as dfa sdf a sfas df";
     [cell.contentView addSubview:label];
@@ -99,6 +100,10 @@ THE SOFTWARE.
     else if (rcSwitch == _normalSwitch)
     {
         NSLog(@"The normal switch is now %@.", on ? @"on" : @"off");
+    }
+    else
+    {
+        NSLog(@"The switch has been switched %@.", on ? @"on" : @"off");
     }
 }
 

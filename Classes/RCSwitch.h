@@ -32,15 +32,13 @@ typedef enum {
 } RC_SliderImageKey;
 
 @interface RCSwitch : UIControl
-{
-    IBOutlet id<RCSwitchDelegate> delegate;
-}
 
 #pragma mark - Properties
 @property (readwrite, assign) float knobWidth;
 @property (readwrite, assign) float drawHeight;
 @property (readwrite, assign) CGSize knobOffset;
 @property (readwrite, assign, getter=isOn) BOOL on;
+@property (readwrite, assign) IBOutlet id<RCSwitchDelegate> delegate;
 - (void)setOn:(BOOL)aBool animated:(BOOL)animated;
 
 #pragma mark - Methods
