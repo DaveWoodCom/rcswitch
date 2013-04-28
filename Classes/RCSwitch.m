@@ -34,7 +34,8 @@
 	UIImage *buttonEndTrack;
 	UIImage *buttonEndTrackPressed;
 
-	float percent, oldPercent, touchPercent;
+	float percent, oldPercent;
+    CGFloat touchStartLocationX;
 	float knobWidth;
 	float endcapWidth;
 	CGPoint startPoint;
@@ -45,6 +46,7 @@
 
 	NSDate *endDate;
 	BOOL mustFlip;
+    BOOL hasBeenOnDuringTouchStart;
 }
 
 @end
@@ -69,7 +71,6 @@
 	sliderOff = [self imageForKey:RC_kSliderOff];
 	scale = [[UIScreen mainScreen] scale];
 	self.opaque = NO;
-    touchPercent = -1;
 }
 
 - (id)initWithFrame:(CGRect)aRect
@@ -179,21 +180,6 @@
 
 	float width = boundsRect.size.width;
 	float drawPercent = percent;
-    
-    if (-1 == touchPercent)
-    {
-        // Ignore touch percent; do not calculate relative percent.
-    }
-    else if (oldPercent <= touchPercent)
-    {
-        // First touch was recorded left from slider.
-        drawPercent = percent - touchPercent;
-    }
-    else
-    {
-        // First touch was recorded right from slider.
-        drawPercent = oldPercent - (touchPercent - percent);
-    }
 
 	if (((width - knobWidth) * drawPercent) < 3)
     {
@@ -298,14 +284,14 @@
 
 - (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    // Calculate which 'percent' the user touched at.
     CGPoint point = [touch locationInView:self];
-    touchPercent = point.x / self.frame.size.width;
+    touchStartLocationX = point.x;
     
 	self.highlighted = YES;
 	oldPercent = percent;
 	endDate = nil;
 	mustFlip = YES;
+    hasBeenOnDuringTouchStart = [self isOn];
 
 	[self setNeedsDisplay];
 	[self sendActionsForControlEvents:UIControlEventTouchDown];
@@ -316,17 +302,23 @@
 - (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
 	CGPoint point = [touch locationInView:self];
-	percent = (point.x - knobWidth / 2.0) / (self.bounds.size.width - knobWidth);
-
-    if (percent < 0.0)
+    CGFloat touchLocationX = point.x;
+    
+    CGFloat distanceToStartTouch = touchLocationX - touchStartLocationX;
+    CGFloat trackWidth = self.bounds.size.width - knobWidth;
+    
+    if (hasBeenOnDuringTouchStart)
     {
-		percent = 0.0;
+        percent = 1 + distanceToStartTouch / trackWidth;
     }
-
-	if (percent > 1.0)
+    else
     {
-		percent = 1.0;
+        percent = distanceToStartTouch / trackWidth;
     }
+    
+    // Normalize
+    percent = MIN(1.0f, percent);
+    percent = MAX(0.0f, percent);
 
 	if ((oldPercent < 0.25 && percent > 0.5) || (oldPercent > 0.75 && percent < 0.5))
     {
@@ -419,9 +411,6 @@
 {
 	endDate = [NSDate dateWithTimeIntervalSinceNow:fabsf(percent - toPercent) * animationDuration];
 	percent = toPercent;
-    
-    // Reset the relative touch percent.
-    touchPercent = -1;
 
 	[self setNeedsDisplay];
 	[self sendActionsForControlEvents:UIControlEventValueChanged];
