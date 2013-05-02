@@ -405,13 +405,15 @@
 - (void)performSwitchToPercent:(float)toPercent
 {
 	endDate = [NSDate dateWithTimeIntervalSinceNow:fabsf(percent - toPercent) * animationDuration];
+
+    BOOL shouldDelegateBeNotified = percent != toPercent;
     
-    if (percent != toPercent)
+	percent = toPercent;
+
+    if (shouldDelegateBeNotified)
     {
         [self notifyDelegate];
     }
-    
-	percent = toPercent;
 
 	[self setNeedsDisplay];
 	[self sendActionsForControlEvents:UIControlEventValueChanged];
