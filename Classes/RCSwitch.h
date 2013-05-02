@@ -22,6 +22,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "RCSwitchDelegateProtocol.h"
+
 typedef enum {
 	RC_kSliderOff = 1,
 	RC_kSliderOn,
@@ -36,6 +38,7 @@ typedef enum {
 @property (readwrite, assign) float drawHeight;
 @property (readwrite, assign) CGSize knobOffset;
 @property (readwrite, assign, getter=isOn) BOOL on;
+@property (readwrite, assign) IBOutlet id<RCSwitchDelegate> delegate;
 - (void)setOn:(BOOL)aBool animated:(BOOL)animated;
 
 #pragma mark - Methods

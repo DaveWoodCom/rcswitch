@@ -35,6 +35,7 @@
 	UIImage *buttonEndTrackPressed;
 
 	float percent, oldPercent;
+    CGFloat touchStartLocationX;
 	float knobWidth;
 	float endcapWidth;
 	CGPoint startPoint;
@@ -44,8 +45,15 @@
 	CGSize lastBoundsSize;
 
 	NSDate *endDate;
-	BOOL mustFlip;
+    BOOL shouldFlip;
+    BOOL hasBeenOnDuringTouchStart;
+    BOOL areTouchesBeingTracked;
 }
+
+/**
+ * @details Notifies the delegate about the control's new status.
+ */
+- (void)notifyDelegate;
 
 @end
 
@@ -282,10 +290,15 @@
 
 - (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
-	self.highlighted = YES;
+    CGPoint point = [touch locationInView:self];
+    touchStartLocationX = point.x;
+    
+	[self setHighlighted:YES];
 	oldPercent = percent;
 	endDate = nil;
-	mustFlip = YES;
+    hasBeenOnDuringTouchStart = [self isOn];
+    areTouchesBeingTracked = YES;
+    shouldFlip = YES;
 
 	[self setNeedsDisplay];
 	[self sendActionsForControlEvents:UIControlEventTouchDown];
@@ -296,22 +309,35 @@
 - (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
 	CGPoint point = [touch locationInView:self];
-	percent = (point.x - knobWidth / 2.0) / (self.bounds.size.width - knobWidth);
-
-    if (percent < 0.0)
+    CGFloat touchLocationX = point.x;
+    
+    CGFloat distanceToStartTouch = touchLocationX - touchStartLocationX;
+    CGFloat trackWidth = self.bounds.size.width - knobWidth;
+    
+    CGFloat knobOffset = knobWidth / 2.9f;
+    
+    if (hasBeenOnDuringTouchStart)
     {
-		percent = 0.0;
+        distanceToStartTouch = distanceToStartTouch + knobOffset;
+        
+        percent = 1 + distanceToStartTouch / trackWidth;
     }
-
-	if (percent > 1.0)
+    else
     {
-		percent = 1.0;
+        distanceToStartTouch = distanceToStartTouch - knobOffset;
+        
+        percent = distanceToStartTouch / trackWidth;
     }
-
-	if ((oldPercent < 0.25 && percent > 0.5) || (oldPercent > 0.75 && percent < 0.5))
+    
+    if (percent != oldPercent)
     {
-		mustFlip = NO;
+        // The user moved the slider; do not flip any longer.
+        shouldFlip = NO;
     }
+    
+    // Normalize
+    percent = MIN(1.0f, percent);
+    percent = MAX(0.0f, percent);
 
 	[self setNeedsDisplay];
 	[self sendActionsForControlEvents:UIControlEventTouchDragInside];
@@ -321,38 +347,19 @@
 
 - (void)finishEvent
 {
-	self.highlighted = NO;
 	endDate = nil;
-	float toPercent = roundf(1.0 - oldPercent);
-
-	if (!mustFlip)
+    areTouchesBeingTracked = NO;
+    [self setHighlighted:NO];
+    
+    float finalPercent = percent <= 0.5f ? 0.0f : 1.0f;
+    
+    // Flip control when touch recognized but slider has not been moved yet.
+    if (shouldFlip && finalPercent == oldPercent)
     {
-		if (oldPercent < 0.25)
-        {
-			if (percent > 0.5)
-            {
-				toPercent = 1.0;
-            }
-			else
-            {
-				toPercent = 0.0;
-            }
-		}
+        finalPercent = finalPercent == 1.0f ? 0.0f : 1.0f;
+    }
 
-		if (oldPercent > 0.75)
-        {
-			if (percent < 0.5)
-            {
-				toPercent = 0.0;
-            }
-			else
-            {
-				toPercent = 1.0;
-            }
-		}
-	}
-
-	[self performSwitchToPercent:toPercent];
+	[self performSwitchToPercent:finalPercent];
 }
 
 - (void)cancelTrackingWithEvent:(UIEvent *)event
@@ -398,11 +405,38 @@
 - (void)performSwitchToPercent:(float)toPercent
 {
 	endDate = [NSDate dateWithTimeIntervalSinceNow:fabsf(percent - toPercent) * animationDuration];
+
+    BOOL shouldDelegateBeNotified = percent != toPercent;
+    
 	percent = toPercent;
+
+    if (shouldDelegateBeNotified)
+    {
+        [self notifyDelegate];
+    }
 
 	[self setNeedsDisplay];
 	[self sendActionsForControlEvents:UIControlEventValueChanged];
 	[self sendActionsForControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+    // Prevent the control from being un-highlighted when touches are still being tracked.
+    if (areTouchesBeingTracked && !highlighted)
+    {
+        highlighted = YES;
+    }
+    
+    [super setHighlighted:highlighted];
+}
+
+- (void)notifyDelegate
+{
+    if ([self delegate] && [[self delegate] respondsToSelector:@selector(rcSwitch:changedStatusTo:)])
+    {
+        [[self delegate] rcSwitch:self changedStatusTo:[self isOn]];
+    }
 }
 
 @end

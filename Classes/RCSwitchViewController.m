@@ -81,6 +81,7 @@ THE SOFTWARE.
     }
     
     RCSwitchOnOff *theSwitch = [[RCSwitchOnOff alloc] initWithFrame:CGRectMake(220, 8, 94, 27)];
+    [theSwitch setDelegate:self];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(6, 8, 212, 27)];
     label.text = @"hello asdfasdf as dfa sdf as dfa sdf a sfas df";
     [cell.contentView addSubview:label];
@@ -88,16 +89,22 @@ THE SOFTWARE.
     return cell;
 }
 
-- (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-	
-	// Release any cached data, images, etc that aren't in use.
-}
+#pragma mark - RCSwitchDelegate methods
 
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
+- (void)rcSwitch:(RCSwitch *)rcSwitch changedStatusTo:(BOOL)on
+{
+    if (rcSwitch == _wideSwitch)
+    {
+        NSLog(@"The wide switch is now %@.", on ? @"on" : @"off");
+    }
+    else if (rcSwitch == _normalSwitch)
+    {
+        NSLog(@"The normal switch is now %@.", on ? @"on" : @"off");
+    }
+    else
+    {
+        NSLog(@"The switch has been switched %@.", on ? @"on" : @"off");
+    }
 }
 
 

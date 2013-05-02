@@ -42,6 +42,7 @@
 		9959D11D115086B400842058 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 9959D11C115086B400842058 /* LICENSE */; };
 		99FF58C2127E4269001DFF1B /* RCSwitchClone.m in Sources */ = {isa = PBXBuildFile; fileRef = 99FF58C1127E4269001DFF1B /* RCSwitchClone.m */; };
 		99FF5999127E4651001DFF1B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 99FF5998127E4651001DFF1B /* Localizable.strings */; };
+		9A795E38172D5E6A00BDB7AD /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9A795E37172D5E6A00BDB7AD /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +93,8 @@
 		99FF58C1127E4269001DFF1B /* RCSwitchClone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCSwitchClone.m; sourceTree = "<group>"; };
 		99FF5994127E4637001DFF1B /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		99FF599A127E4655001DFF1B /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Japanese; path = Japanese.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9A795E37172D5E6A00BDB7AD /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		9A795E3A172D683200BDB7AD /* RCSwitchDelegateProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCSwitchDelegateProtocol.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +127,7 @@
 				99FF58C1127E4269001DFF1B /* RCSwitchClone.m */,
 				5543364616FF81200037EADD /* RCSwitchRayWenderlich.h */,
 				5543364716FF81200037EADD /* RCSwitchRayWenderlich.m */,
+				9A795E3A172D683200BDB7AD /* RCSwitchDelegateProtocol.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -146,6 +150,7 @@
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				9959D11C115086B400842058 /* LICENSE */,
 				99D2EF1512E4A456005FCFD1 /* THANKS */,
+				9A795E37172D5E6A00BDB7AD /* README.md */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -318,6 +323,7 @@
 				5543365116FF8C0C0037EADD /* switchBackground@2x.png in Resources */,
 				5543365216FF8C0C0037EADD /* switchHandle.png in Resources */,
 				5543365316FF8C0C0037EADD /* switchHandle@2x.png in Resources */,
+				9A795E38172D5E6A00BDB7AD /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
